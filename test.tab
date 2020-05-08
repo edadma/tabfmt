@@ -1,0 +1,5 @@
+t1
+ id: integer, pk  f1: text 
+ 1                aa       
+ 2                bb       
+ 3                cc       
