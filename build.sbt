@@ -2,7 +2,7 @@ name := "tabfmt"
 
 version := "0.1.0"
 
-scalaVersion := "2.11.12"
+scalaVersion := "2.13.6"
 
 enablePlugins(ScalaNativePlugin)
 
@@ -16,30 +16,36 @@ scalacOptions ++= Seq( "-deprecation", "-feature", "-unchecked", "-language:post
 
 organization := "xyz.hyperreal"
 
-resolvers += "Hyperreal Repository" at "https://dl.bintray.com/edadma/maven"
+githubOwner := "edadma"
 
-mainClass in (Compile, run) := Some( "xyz.hyperreal." + name.value.replace('-', '_') + ".Main" )
+githubRepository := "-scala-native"
+
+Global / onChangedBuildSource := ReloadOnSourceChanges
+
+resolvers += "Typesafe Repository" at "https://repo.typesafe.com/typesafe/releases/"
+
+resolvers += Resolver.githubPackages("edadma")
+
+Compile / mainClass := Some("xyz.hyperreal." + name.value.replace('-', '_') + ".Main")
 
 licenses := Seq("ISC" -> url("https://opensource.org/licenses/ISC"))
 
 homepage := Some(url("https://github.com/edadma/" + name.value))
 
-libraryDependencies += "com.lihaoyi" %%% "utest" % "0.7.1" % "test"
-
-testFrameworks += new TestFramework( "utest.runner.Framework" )
+libraryDependencies += "org.scalatest" %%% "scalatest" % "3.2.9" % "test"
 
 libraryDependencies ++= Seq(
-  "com.github.scopt" %%% "scopt" % "3.7.1"
+  "com.github.scopt" %%% "scopt" % "4.0.1"
 )
 
 libraryDependencies ++= Seq(
-  "xyz.hyperreal" %%% "table-sn" % "0.11.2",
-  "xyz.hyperreal" %%% "importer-sn" % "0.5.3"
+  "xyz.hyperreal" %%% "table" % "1.0.0-snapshot.3",
+  "xyz.hyperreal" %%% "importer" % "0.1.2"
 )
 
 publishMavenStyle := true
 
-publishArtifact in Test := false
+Test / publishArtifact := false
 
 pomIncludeRepository := { _ => false }
 

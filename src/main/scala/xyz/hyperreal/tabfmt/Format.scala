@@ -2,12 +2,12 @@ package xyz.hyperreal.tabfmt
 
 import java.io.{File, FileWriter}
 
-import xyz.hyperreal.importer_sn.{Column, Importer, Table}
-import xyz.hyperreal.table_sn.TextTable
+import xyz.hyperreal.importer.{Column, Importer}
+import xyz.hyperreal.table.TextTable
 
 object Format {
 
-  def apply(inpath: String, outpath: String) {
+  def apply(inpath: String, outpath: String): Unit = {
     val file = new File(inpath)
 
     if (file.exists && file.isFile && file.canRead) {
@@ -17,7 +17,7 @@ object Format {
 
         s.close
 
-        val tables = Importer.importFromString(content, true, false)
+        val tables = Importer.importFromString(content, doubleSpaces = true)
         val buf    = new StringBuilder
 
         def put(s: String) = buf ++= s
