@@ -1,8 +1,7 @@
 package xyz.hyperreal.tabfmt
 
 import java.io.{File, FileWriter}
-
-import xyz.hyperreal.importer.{Column, Importer}
+import xyz.hyperreal.importer.{Column, Import, Importer}
 import xyz.hyperreal.table.TextTable
 
 object Format {
@@ -17,16 +16,23 @@ object Format {
 
         s.close
 
-        val tables = Importer.importFromString(content, doubleSpaces = true)
+        val Import(enums, tables) = Importer.importFromString(content, doubleSpaces = true)
         val buf    = new StringBuilder
 
         def put(s: String) = buf ++= s
 
         def putln(s: String) = put(s"$s\n")
 
+        def putlf = put("\n")
+
+        for(e <- enums) {
+          putln(e.name)
+          putlf
+        }
+
         for (t <- tables) {
           if (t ne tables.head)
-            put("\n")
+            putlf
 
           putln(t.name)
 

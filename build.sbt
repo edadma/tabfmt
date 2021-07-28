@@ -40,7 +40,7 @@ libraryDependencies ++= Seq(
 
 libraryDependencies ++= Seq(
   "xyz.hyperreal" %%% "table" % "1.0.0-snapshot.3",
-  "xyz.hyperreal" %%% "importer" % "0.1.3"
+  "xyz.hyperreal" %%% "importer" % "0.1.4"
 )
 
 publishMavenStyle := true
