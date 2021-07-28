@@ -1,7 +1,7 @@
 package xyz.hyperreal.tabfmt
 
 import java.io.{File, FileWriter}
-import xyz.hyperreal.importer.{Column, Import, Importer}
+import xyz.hyperreal.importer.{Column, Enum, Import, Importer}
 import xyz.hyperreal.table.TextTable
 
 object Format {
@@ -25,8 +25,8 @@ object Format {
 
         def putlf = put("\n")
 
-        for(e <- enums) {
-          putln(e.name)
+        for(Enum(name, labels) <- enums) {
+          putln(s"$name: ${labels mkString ", "}")
           putlf
         }
 
