@@ -1,8 +1,10 @@
-package xyz.hyperreal.tabfmt
+package io.github.edadma.tabfmt
 
 import java.io.{File, FileWriter}
-import xyz.hyperreal.importer.{Column, Enum, Import, Importer}
-import xyz.hyperreal.table.TextTable
+import io.github.edadma.importer.{Column, Enum, Import, Importer}
+import io.github.edadma.table.TextTable
+
+import scala.collection.mutable
 
 object Format {
 
@@ -11,13 +13,13 @@ object Format {
 
     if (file.exists && file.isFile && file.canRead) {
       try {
-        val s       = io.Source.fromFile(file)
+        val s       = scala.io.Source.fromFile(file)
         val content = s.mkString
 
         s.close
 
         val Import(enums, tables) = Importer.importFromString(content, doubleSpaces = true)
-        val buf    = new StringBuilder
+        val buf    = new mutable.StringBuilder
 
         def put(s: String) = buf ++= s
 
@@ -36,7 +38,7 @@ object Format {
 
           putln(t.name)
 
-          val table = new TextTable { noansi }
+          val table = new TextTable { noansi() }
 
           table.headerSeq(t.header map {
             case Column(name, typ, Nil)  => s"$name: $typ"

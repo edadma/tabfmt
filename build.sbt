@@ -2,7 +2,7 @@ name := "tabfmt"
 
 version := "0.1.0"
 
-scalaVersion := "2.13.6"
+scalaVersion := "3.1.3"
 
 enablePlugins(ScalaNativePlugin)
 
@@ -14,33 +14,27 @@ nativeLinkingOptions := Seq( s"-L/${baseDirectory.value}/native-lib" )
 
 scalacOptions ++= Seq( "-deprecation", "-feature", "-unchecked", "-language:postfixOps", "-language:implicitConversions", "-language:existentials" )
 
-organization := "xyz.hyperreal"
+organization := "io.github.edadma"
 
 githubOwner := "edadma"
 
-githubRepository := "-scala-native"
+githubRepository := "tabfmt"
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
 
-resolvers += "Typesafe Repository" at "https://repo.typesafe.com/typesafe/releases/"
-
 resolvers += Resolver.githubPackages("edadma")
 
-Compile / mainClass := Some("xyz.hyperreal." + name.value.replace('-', '_') + ".Main")
+//Compile / mainClass := Some(s"${organization.value}.${name.value.replace('-', '_')}.Main")
 
 licenses := Seq("ISC" -> url("https://opensource.org/licenses/ISC"))
 
 homepage := Some(url("https://github.com/edadma/" + name.value))
 
-libraryDependencies += "org.scalatest" %%% "scalatest" % "3.2.9" % "test"
+libraryDependencies += "org.scalatest" %%% "scalatest" % "3.2.12" % "test"
 
 libraryDependencies ++= Seq(
-  "com.github.scopt" %%% "scopt" % "4.0.1"
-)
-
-libraryDependencies ++= Seq(
-  "xyz.hyperreal" %%% "table" % "1.0.0-snapshot.3",
-  "xyz.hyperreal" %%% "importer" % "0.1.4"
+  "io.github.edadma" %%% "table" % "1.0.3",
+  "io.github.edadma" %%% "importer" % "0.1.8"
 )
 
 publishMavenStyle := true
